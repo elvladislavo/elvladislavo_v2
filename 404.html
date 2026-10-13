@@ -10,7 +10,7 @@
 <meta name="color-scheme" content="dark">
 
 <!-- Inlined so the icon resolves no matter what path this page is served from. -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22 role=%22img%22 aria-label=%22elvladislavo%22%3E %3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230A0A0B%22/%3E %3Ccircle cx=%2232%22 cy=%2232%22 r=%2215%22 fill=%22%23FF2E1F%22/%3E %3Cpath d=%22M32 17a15 15 0 0 1 0 30z%22 fill=%22%23EFEAE1%22 opacity=%22.92%22/%3E %3Ccircle cx=%2232%22 cy=%2232%22 r=%224.6%22 fill=%22%230A0A0B%22/%3E %3C/svg%3E" type="image/svg+xml">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 role=%22img%22 aria-label=%22elvladislavo%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2221%22 fill=%22%230A0A0B%22/%3E%3Cg fill=%22%23FF2E1F%22%3E%3Crect x=%2220%22 y=%2225%22 width=%2230%22 height=%2210%22/%3E%3Crect x=%2210%22 y=%2235%22 width=%2210%22 height=%2210%22/%3E%3Crect x=%2250%22 y=%2235%22 width=%2210%22 height=%2210%22/%3E%3Crect x=%2210%22 y=%2245%22 width=%2250%22 height=%2210%22/%3E%3Crect x=%2210%22 y=%2255%22 width=%2210%22 height=%2210%22/%3E%3Crect x=%2220%22 y=%2265%22 width=%2230%22 height=%2210%22/%3E%3Crect x=%2270%22 y=%2225%22 width=%2210%22 height=%2250%22/%3E%3Crect x=%2280%22 y=%2265%22 width=%2210%22 height=%2210%22/%3E%3C/g%3E%3C/svg%3E" type="image/svg+xml">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,9 +71,6 @@ button{background:none;border:0;cursor:pointer;font:inherit;color:inherit}
 }
 .nav__logo{display:inline-flex;align-items:center;gap:.62rem;font-weight:800;
   letter-spacing:-.035em;font-size:clamp(1rem,1.35vw,1.2rem)}
-.nav__dot{width:9px;height:9px;border-radius:50%;background:var(--red);
-  transition:transform .55s var(--e-snap)}
-.nav__logo:hover .nav__dot{transform:scale(1.9)}
 .nav__word{font-variation-settings:"wdth" 100;transition:font-variation-settings .55s var(--e)}
 .nav__logo:hover .nav__word{font-variation-settings:"wdth" 88}
 
@@ -174,7 +171,6 @@ button{background:none;border:0;cursor:pointer;font:inherit;color:inherit}
 
 <header class="nav">
   <a class="nav__logo" id="homeLogo" href="/" aria-label="elvladislavo — home">
-    <span class="nav__dot" aria-hidden="true"></span>
     <span class="nav__word">elvladislavo</span>
   </a>
   <div class="lang" role="group" aria-label="Language / Język">

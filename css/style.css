@@ -387,12 +387,6 @@ html.is-preload { overflow: hidden; }
   font-size: clamp(1rem, 1.35vw, 1.2rem);
   position: relative; z-index: 2;
 }
-.nav__dot {
-  width: 9px; height: 9px; border-radius: 50%;
-  background: var(--red);
-  transition: transform .55s var(--e-snap);
-}
-.nav__logo:hover .nav__dot { transform: scale(1.9); }
 .nav__word {
   transition: font-variation-settings .55s var(--e);
   font-variation-settings: "wdth" 100;

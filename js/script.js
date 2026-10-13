@@ -38,7 +38,7 @@
 
       'hero.eyebrow': 'Independent website studio',
       'hero.title': 'Websites for <em>sensible</em> money.',
-      'hero.lede': "I handle the site from design to launch, so you only pay for the work on it.",
+      'hero.lede': 'I handle the site from design to launch, so you only pay for the work on it.',
       'hero.cta1': 'Describe your project', 'hero.cta2': 'See pricing',
       'hero.m1k': 'Based in', 'hero.m1v': 'Poland',
       'hero.m2k': 'I speak', 'hero.m3k': 'Status', 'hero.m3v': 'Open for projects',
