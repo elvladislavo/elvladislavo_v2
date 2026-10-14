@@ -38,6 +38,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap">
 <link rel="stylesheet" href="css/style.css">
 
@@ -45,6 +46,10 @@
 /* Runs before paint: marks JS availability, restores language + motion prefs,
    and holds the first frame so the localised copy never flashes. */
 (function () {
+  /* A reload starts at the top: this page opens on a full-height hero and
+     an intro, and being dropped back into the middle of it reads as a
+     glitch. A link to an anchor still works — only restoration is off. */
+  if ('scrollRestoration' in history && !location.hash) history.scrollRestoration = 'manual';
   var d = document.documentElement;
   d.className = d.className.replace('no-js', 'js') + ' is-preload';
   var lang = null;

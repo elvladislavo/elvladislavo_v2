@@ -36,11 +36,12 @@
   var KU = 1.0 / (DX * DX), KV = 0.60 / (DX * DX), INV_EPS = 1 / EPS;
 
   /* ── The two dials worth touching ─────────────────────────────────────
-     SPEED  how fast the waves travel. 1 is as shipped; 0.5 is half speed,
-            2 is twice. Fractions are fine — it is a rate, not a step count.
+     SPEED  how fast the waves travel. 1 was the original pace; 0.5 is half
+            of it, 2 is double. Fractions are fine — it is a rate, not a
+            step count.
      SCALE  how large the pattern is. 1 is as shipped; 1.5 draws it half
             again as big (and costs less), 0.7 finer (and costs more).     */
-  var SPEED = 1;
+  var SPEED = 1.15;
   var SCALE = 1;
   /* ─────────────────────────────────────────────────────────────────── */
 

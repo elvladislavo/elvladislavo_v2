@@ -152,7 +152,7 @@ on a phone and on a desktop.
 Two dials sit at the top of `js/bz.js`, right under the model constants:
 
 ```js
-var SPEED = 1;   // 1 as shipped · 0.5 half as fast · 2 twice as fast
+var SPEED = 1.15; // 1 was the original pace · 0.5 half · 2 double
 var SCALE = 1;   // 1 as shipped · 1.5 a larger, cheaper pattern · 0.7 finer
 var HOLD  = 0;   // 0 moves on arrival · a number of ms holds the first
                  //   frame still until the visitor touches the page
@@ -174,6 +174,15 @@ louder. Above the canvas, every dark section lays down a flat scrim and the
 blocks that carry copy add a soft ink halo, so no sharp edge ever lands behind
 a line of text. `js/bz.js` is dropped in by `index.html` and `privacy.html`;
 `404.html` stays self-contained by design and keeps its own glow.
+
+**Type settles before it is shown.** Headlines are sized in `ch` and set with
+`text-wrap: balance`, so they re-wrap the instant the web font lands — two
+lines become one. On a first visit the loader covers that; on a reload the
+loader is skipped, so the reveal waits for the three faces that set the
+measurements (`whenFontsReady` in `js/script.js`), capped at 900 ms so a slow
+network can never hold the page. A reload also starts at the top rather than
+where you left off: `history.scrollRestoration` is set to `manual` in the head
+of `index.html`, except when the URL carries an anchor.
 
 **Motion** runs on one `requestAnimationFrame` loop that sleeps as soon as
 everything settles — no permanently running timers. Scroll work reads all

@@ -786,6 +786,35 @@
     if (l) l.classList.add('is-done');
   }
 
+  /* Headlines are sized in `ch`, so they re-wrap the moment the web font
+     lands — two lines become one, mid-read. On a first visit the loader
+     covers that; on a reload the loader is skipped and the reflow would
+     happen in plain sight. So the reveal waits for the fonts, with a cap so
+     a slow network can never hold the page hostage. From cache this costs
+     a few milliseconds. */
+  function whenFontsReady(fn, cap) {
+    var done = false;
+    var go = function () { if (done) return; done = true; clearTimeout(t); fn(); };
+    var t = setTimeout(go, cap);
+
+    if (!document.fonts || !document.fonts.load) { go(); return; }
+
+    // `fonts.ready` alone resolves early when nothing has been requested yet
+    // — a font is only fetched once layout asks for it. Asking for the three
+    // faces that set the measurements makes the wait mean something.
+    var want = [
+      '800 5rem "Archivo"',
+      'italic 400 5rem "Instrument Serif"',
+      '400 1rem "Space Mono"'
+    ].map(function (f) {
+      try { return document.fonts.load(f); } catch (e) { return null; }
+    }).filter(Boolean);
+
+    Promise.all(want)
+      .then(function () { return document.fonts.ready; })
+      .then(go, go);
+  }
+
   function runLoader(next) {
     var loader = $('#loader');
     var seen = false;
@@ -793,7 +822,7 @@
 
     if (!loader || REDUCED || seen) {
       if (loader) loader.classList.add('is-done');
-      next();
+      whenFontsReady(next, 900);
       return;
     }
     try { sessionStorage.setItem('elv-seen', '1'); } catch (e) {}
@@ -823,7 +852,7 @@
       if (p < 1) { requestAnimationFrame(tick); return; }
 
       loader.classList.add('is-out');
-      next();
+      whenFontsReady(next, 600);          // the wipe hides any last reflow
       setTimeout(function () { loader.classList.add('is-done'); }, 1000);
     })(start);
   }

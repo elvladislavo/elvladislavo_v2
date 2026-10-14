@@ -45,7 +45,9 @@
   .doc__back:hover i { transform: translateX(-.3rem); }
 </style>
 <script>
-(function(){var d=document.documentElement;d.className=d.className.replace('no-js','js');
+(function(){
+  if ('scrollRestoration' in history && !location.hash) history.scrollRestoration = 'manual';
+  var d=document.documentElement;d.className=d.className.replace('no-js','js');
 var l=null;try{l=localStorage.getItem('elv-lang');}catch(e){}
 if(l!=='pl'&&l!=='en'){l=/^pl\b/i.test(navigator.language||'')?'pl':'en';}d.lang=l;})();
 </script>
