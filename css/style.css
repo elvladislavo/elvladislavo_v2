@@ -1,12 +1,13 @@
 /* ═══════════════════════════════════════════════════════════════════════
    elvladislavo — independent web-development studio
    ───────────────────────────────────────────────────────────────────────
-   00 · Tokens & reset          06 · Ticker            12 · Contact
-   01 · Base type & utilities   07 · Work              13 · Footer
-   02 · Ambient (grain/cursor)  08 · Services          14 · Motion primitives
-   03 · Loader                  09 · Approach (light)  15 · Responsive
-   04 · Navigation              10 · Pricing           16 · Reduced motion
-   05 · Hero                    11 · Process
+   00 · Tokens & reset          06 · Work              12 · Footer
+   01 · Base type & utilities   07 · Services          13 · Motion primitives
+   02 · Ambient (reaction/      08 · Approach (light)  14 · Responsive
+        grain/cursor)           09 · Pricing           15 · Reduced motion
+   03 · Loader                  10 · Process
+   04 · Navigation              11 · Contact
+   05 · Hero
    ═══════════════════════════════════════════════════════════════════════ */
 
 /* ══ 00 · Tokens & reset ═══════════════════════════════════════════════ */
@@ -39,12 +40,25 @@
 
   --bg:       var(--ink);
   --fg:       var(--bone);
+
+  /* Reaction background — the three dials that keep type readable on top:
+     how much ink sits over the waves, how soft they are, how bright.     */
+  --bz-veil:  .64;
+  --bz-blur:  1.6px;
+  --bz-fade:  .86;
+
+  /* Outline-only display type (the cropped wordmarks, the project ghosts)
+     needs more stroke over moving waves than it did over flat ink. */
+  --mark-line: rgba(239, 234, 225, .34);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 
 html {
+  /* The page background lives on the root so the fixed reaction canvas
+     (a negative-z-index child of body) is not painted over by body. */
+  background: var(--bg);
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-h) + 1.5rem);
@@ -55,7 +69,7 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background: transparent;
   color: var(--fg);
   font-family: var(--f-sans);
   font-size: clamp(1rem, .95rem + .2vw, 1.125rem);
@@ -138,9 +152,14 @@ em { font-style: normal; }
 }
 .sec--light {
   max-width: none;
-  background: var(--bone);
+  background: color-mix(in srgb, var(--bone) 95%, transparent);
   color: var(--ink);
   border-block: 5px solid var(--red);
+  -webkit-backdrop-filter: blur(6px) saturate(.75);
+  backdrop-filter: blur(6px) saturate(.75);
+}
+@supports not (background: color-mix(in srgb, white 50%, transparent)) {
+  .sec--light { background: rgba(239, 234, 225, .95); }
 }
 .sec--light > * { max-width: var(--max); margin-inline: auto; }
 
@@ -222,7 +241,102 @@ em { font-style: normal; }
 .btn:hover .btn__a { transform: translateX(.35rem); }
 .btn--ghost:hover .btn__a { transform: translateY(.25rem); }
 
-/* ══ 02 · Ambient — grain & cursor ═════════════════════════════════════ */
+/* Three steps keep the type off the waves, none of them a visible panel:
+   a veil over the canvas itself, a flat scrim per dark section, and a soft
+   ink halo under the blocks that actually carry copy. */
+.sec:not(.sec--light)::before,
+.foot::before {
+  content: "";
+  position: absolute; inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: rgba(10, 10, 11, .56);
+}
+
+.hero__meta::before,
+.hero__eyebrow::before,
+.hero__scroll::before,
+.sec__head::before,
+.svc::before,
+.projects::before,
+.prices::before,
+.steps::before,
+.contact__grid::before,
+.pricing__foot::before,
+.foot__top::before,
+.foot__bar::before {
+  content: "";
+  position: absolute;
+  /* Wide on purpose: the sides run past the content (and past the viewport),
+     so the copy sits in the dense middle of the ellipse and the fade happens
+     where nothing is reading. */
+  inset: clamp(-5rem, -6vw, -2rem) -24vw;
+  z-index: -1;
+  pointer-events: none;
+  /* Radii are halves of the box — a radial-gradient's percentages are of the
+     whole box, not the half — so the ink fades to nothing before the edge and
+     no rectangle shows up over the waves. */
+  background: radial-gradient(52% 54% at 50% 50%,
+    rgba(10, 10, 11, .66) 0%, rgba(10, 10, 11, .46) 54%, rgba(10, 10, 11, 0) 100%);
+}
+
+/* The hero carries no section scrim — the waves are at full strength there —
+   so its halo does the whole job. It hangs on the section rather than on the
+   copy, at a z-index below the cropped wordmark, so the mark reads against
+   the quieter ground instead of being painted over by it. The box runs well
+   past the viewport on both sides: the dense middle of the ellipse lands
+   under the copy and the fade happens off-screen. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -4rem -26vw 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(50% 56% at 50% 46%,
+    rgba(10, 10, 11, .82) 0%, rgba(10, 10, 11, .6) 54%, rgba(10, 10, 11, 0) 100%);
+}
+.hero__meta::before,
+.hero__eyebrow::before,
+.hero__scroll::before {
+  inset: clamp(-3.5rem, -4vw, -2rem) clamp(-3rem, -3.5vw, -1.6rem);
+  background: radial-gradient(54% 56% at 50% 50%,
+    rgba(10, 10, 11, .72) 0%, rgba(10, 10, 11, .5) 52%, rgba(10, 10, 11, 0) 100%);
+}
+.sec--light .sec__head::before { display: none; }
+
+/* ══ 02 · Ambient — reaction, grain & cursor ═══════════════════════════ */
+
+/* Belousov–Zhabotinsky waves on one fixed canvas behind the whole page.
+   The canvas itself is coarse (a cell is 5–9 px, the browser smooths it);
+   the blur and the ink veil above it keep sharp local contrast away from
+   the type without hiding the spirals. */
+.bz {
+  position: fixed; inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--ink);
+  contain: layout paint style;
+}
+.bz canvas {
+  width: 100%; height: 100%;
+  opacity: 0;
+  filter: blur(var(--bz-blur)) saturate(1.05);
+  transform: scale(1.04);          /* hides the blur's soft edge */
+  /* Arrives on the same curve and in the same breath as the section
+     reveals, so it reads as part of the page coming in, not a late guest. */
+  transition: opacity .9s var(--e);
+}
+.bz.is-on canvas { opacity: var(--bz-fade); }
+.bz__veil {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 11, .72) 0%, rgba(10, 10, 11, 0) 210px),
+    radial-gradient(125% 90% at 72% 34%,
+      rgba(10, 10, 11, calc(var(--bz-veil) - .14)) 0%,
+      rgba(10, 10, 11, var(--bz-veil)) 48%,
+      rgba(10, 10, 11, calc(var(--bz-veil) + .2)) 100%);
+}
+
 .grain {
   position: fixed; inset: -120px;
   z-index: 200; pointer-events: none;
@@ -512,47 +626,10 @@ html.is-preload { overflow: hidden; }
   overflow: hidden;
   isolation: isolate;
 }
-.hero__bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-
-.blob { position: absolute; border-radius: 50%; will-change: transform; }
-.blob--red {
-  width: min(56vw, 720px); aspect-ratio: 1;
-  right: -12vw; top: -14vh;
-  background: radial-gradient(closest-side, rgba(255,46,31,.85), rgba(196,22,12,.28) 55%, transparent 76%);
-  filter: blur(48px);
-  opacity: .72;
-  animation: float1 26s var(--e-io) infinite;
-}
-.blob--lime {
-  width: min(30vw, 380px); aspect-ratio: 1;
-  left: -8vw; bottom: -12vh;
-  background: radial-gradient(closest-side, rgba(200,255,61,.34), transparent 70%);
-  filter: blur(72px);
-  opacity: .5;
-  animation: float2 34s var(--e-io) infinite;
-}
-@keyframes float1 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50%      { transform: translate3d(-4vw, 5vh, 0) scale(1.1); }
-}
-@keyframes float2 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50%      { transform: translate3d(5vw, -4vh, 0) scale(1.16); }
-}
-
 .ring {
   position: absolute; border-radius: 50%;
   border: 1px solid var(--hair);
   will-change: transform;
-}
-.ring--1 {
-  width: min(44vw, 560px); aspect-ratio: 1; right: 4vw; top: 8vh;
-  transform: translate3d(0, var(--py, 0px), 0);
-}
-.ring--2 {
-  width: min(24vw, 300px); aspect-ratio: 1; right: 22vw; top: 44vh;
-  border: 1px dashed rgba(255,46,31,.42);
-  animation: spin 44s linear infinite;
 }
 .ring--3 {
   position: absolute; width: min(38vw, 460px); aspect-ratio: 1;
@@ -562,21 +639,6 @@ html.is-preload { overflow: hidden; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.rules {
-  position: absolute; inset: -10% 0;
-  background: repeating-linear-gradient(90deg, var(--hair-2) 0 1px, transparent 1px clamp(60px, 8vw, 130px));
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%, #000 72%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 22%, #000 72%, transparent);
-  transform: translate3d(0, var(--py, 0px), 0);
-}
-.slash {
-  position: absolute; width: 1px; height: 150%;
-  background: linear-gradient(180deg, transparent, rgba(255,46,31,.55), transparent);
-  will-change: transform;
-}
-.slash--1 { left: 18%; top: -25%; transform: translate3d(0, var(--py, 0px), 0) rotate(14deg); }
-.slash--2 { right: 30%; top: -25%; transform: translate3d(0, var(--py, 0px), 0) rotate(-9deg); opacity: .5; }
-
 .hero__inner {
   position: relative; z-index: 2;
   width: 100%; max-width: var(--max); margin-inline: auto;
@@ -585,6 +647,7 @@ html.is-preload { overflow: hidden; }
   gap: 0 var(--gap);
 }
 .hero__eyebrow {
+  position: relative;
   grid-column: 1 / -1;
   display: inline-flex; align-items: center; gap: .8rem;
   font: 400 clamp(.68rem, .9vw, .8rem)/1 var(--f-mono);
@@ -631,6 +694,7 @@ html.is-preload { overflow: hidden; }
   display: flex; flex-wrap: wrap; align-items: flex-start; gap: .85rem;
 }
 .hero__meta {
+  position: relative;
   grid-column: 10 / -1;
   align-self: end;
   margin-top: clamp(2rem, 4vw, 3.2rem);
@@ -672,7 +736,7 @@ html.is-preload { overflow: hidden; }
   letter-spacing: -.055em;
   text-align: center;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(239, 234, 225, .2);
+  -webkit-text-stroke: 1px var(--mark-line);
   font-variation-settings: "wdth" 100;
   white-space: nowrap;
 }
@@ -700,47 +764,10 @@ html.is-preload { overflow: hidden; }
   100% { transform: translateX(100%); }
 }
 
-/* ══ 06 · Ticker ═══════════════════════════════════════════════════════ */
-.ticker-hold { overflow: hidden; position: relative; z-index: 3; }
-.ticker {
-  position: relative; z-index: 3;
-  width: 112%; margin-left: -6%;
-  transform: rotate(-1.6deg);
-  border-block: 1px solid var(--hair);
-  background: var(--ink-2);
-  overflow: hidden;
-}
-.ticker__row { overflow: hidden; padding-block: clamp(.7rem, 1.4vw, 1.05rem); }
-.ticker__track {
-  display: flex; width: max-content;
-  animation: marq var(--dur, 34s) linear infinite;
-  will-change: transform;
-}
-.ticker__row[data-dir="-1"] .ticker__track { animation-direction: reverse; }
-.ticker:hover .ticker__track { animation-play-state: paused; }
-@keyframes marq {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
-}
-.ticker__row--alt {
-  background: var(--red);
-  color: var(--ink);
-  border-top: 1px solid var(--hair);
-}
-.ticker__t {
-  display: inline-flex; align-items: center; gap: 1.6rem;
-  white-space: nowrap;
-  font: 700 clamp(1.05rem, 2.6vw, 2.1rem)/1 var(--f-sans);
-  letter-spacing: -.02em;
-  font-variation-settings: "wdth" 88;
-  padding-right: 1.6rem;
-}
-.ticker__t i { color: var(--red); font-style: normal; font-size: .7em; }
-.ticker__row--alt .ticker__t i { color: var(--ink); opacity: .55; }
-
-/* ══ 07 · Work ═════════════════════════════════════════════════════════ */
+/* ══ 06 · Work ═════════════════════════════════════════════════════════ */
 .work { padding-top: clamp(5rem, 11vw, 10rem); }
 .projects {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: var(--gap);
@@ -750,15 +777,23 @@ html.is-preload { overflow: hidden; }
 .proj--b { grid-column: 7 / -1; margin-top: clamp(7rem, 19vw, 21rem); }
 
 .proj__ghost {
-  position: absolute; top: -.44em; left: -.05em;
-  z-index: 0; pointer-events: none;
+  position: absolute; top: -.56em; left: -.05em;
+  z-index: 2; pointer-events: none;
   font-size: clamp(3.2rem, 10.5vw, 11.5rem);
   font-weight: 900; letter-spacing: -.05em;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(239, 234, 225, .2);
+  -webkit-text-stroke: 1px var(--mark-line);
   white-space: nowrap;
   transform: translate3d(var(--px, 0px), 0, 0);
   will-change: transform;
+}
+.proj__ghost::before {
+  content: "";
+  position: absolute;
+  inset: -30% -12%;
+  z-index: -1;
+  background: radial-gradient(50% 50% at 50% 50%,
+    rgba(10, 10, 11, .52) 0%, rgba(10, 10, 11, .3) 54%, rgba(10, 10, 11, 0) 100%);
 }
 .proj--b .proj__ghost { left: auto; right: -.05em; }
 
@@ -865,8 +900,8 @@ html.is-preload { overflow: hidden; }
 .proj__cta i { font-style: normal; transition: transform .5s var(--e-snap); }
 .proj__link:hover .proj__cta i { transform: translateX(.4rem); }
 
-/* ══ 08 · Services ═════════════════════════════════════════════════════ */
-.svc { border-top: 1px solid var(--hair); }
+/* ══ 07 · Services ═════════════════════════════════════════════════════ */
+.svc { position: relative; border-top: 1px solid var(--hair); }
 .svc__item { border-bottom: 1px solid var(--hair); position: relative; }
 .svc__h { font: inherit; letter-spacing: normal; }
 
@@ -961,7 +996,7 @@ html.is-preload { overflow: hidden; }
 }
 .tags li:hover { border-color: var(--red); color: var(--fg); }
 
-/* ══ 09 · Approach (light) ═════════════════════════════════════════════ */
+/* ══ 08 · Approach (light) ═════════════════════════════════════════════ */
 .approach { overflow: hidden; }
 .approach .sec__title { color: var(--ink); }
 .approach__deco {
@@ -1046,16 +1081,8 @@ html.is-preload { overflow: hidden; }
 }
 .incl__seo { margin-top: 1rem; color: rgba(239,234,225,.5); }
 
-/* ══ 10 · Pricing ══════════════════════════════════════════════════════ */
+/* ══ 09 · Pricing ══════════════════════════════════════════════════════ */
 .pricing { overflow: hidden; }
-.pricing__deco {
-  position: absolute; left: -14vw; top: 22%;
-  width: min(46vw, 560px); aspect-ratio: 1; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(255,46,31,.36), transparent 70%);
-  filter: blur(70px); pointer-events: none; z-index: 0;
-  transform: translate3d(0, var(--py, 0px), 0);
-  will-change: transform;
-}
 .prices { position: relative; z-index: 1; border-top: 1px solid var(--hair); }
 .price {
   position: relative;
@@ -1106,6 +1133,7 @@ html.is-preload { overflow: hidden; }
 .price:hover .price__go { transform: translateX(.4rem); color: var(--fg); }
 
 .pricing__foot {
+  position: relative;
   margin-top: clamp(2.6rem, 6vw, 5rem);
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
@@ -1127,8 +1155,9 @@ html.is-preload { overflow: hidden; }
   border-left: 1px solid var(--hair);
 }
 
-/* ══ 11 · Process ══════════════════════════════════════════════════════ */
+/* ══ 10 · Process ══════════════════════════════════════════════════════ */
 .steps {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(2rem, 4vw, 4rem);
@@ -1156,7 +1185,7 @@ html.is-preload { overflow: hidden; }
 }
 .step p { color: var(--mut); max-width: 34ch; font-size: .98rem; }
 
-/* ══ 12 · Contact ══════════════════════════════════════════════════════ */
+/* ══ 11 · Contact ══════════════════════════════════════════════════════ */
 .contact { overflow: hidden; }
 .contact__deco { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .contact__grid {
@@ -1272,7 +1301,7 @@ html.is-preload { overflow: hidden; }
 .contact__mail:hover::after { transform: scaleX(1); }
 .contact__start { margin-top: .6rem; justify-self: start; }
 
-/* ══ 13 · Footer ═══════════════════════════════════════════════════════ */
+/* ══ 12 · Footer ═══════════════════════════════════════════════════════ */
 .foot {
   position: relative;
   padding: clamp(3rem, 7vw, 6rem) var(--gut) clamp(1.2rem, 2vw, 2rem);
@@ -1281,6 +1310,7 @@ html.is-preload { overflow: hidden; }
   transition: opacity .5s var(--e);
 }
 .foot__top {
+  position: relative;
   max-width: var(--max); margin-inline: auto;
   display: flex; justify-content: space-between; align-items: flex-start;
   gap: 2rem; flex-wrap: wrap;
@@ -1317,6 +1347,7 @@ html.is-preload { overflow: hidden; }
 .foot__mark.is-in span { background-position: 0 0; }
 
 .foot__bar {
+  position: relative;
   max-width: var(--max); margin-inline: auto;
   padding-top: 1.2rem; border-top: 1px solid var(--hair);
   display: flex; justify-content: space-between; align-items: center;
@@ -1329,7 +1360,7 @@ html.is-preload { overflow: hidden; }
 .foot__up i { font-style: normal; transition: transform .45s var(--e-snap); }
 .foot__up:hover i { transform: translateY(-.25rem); }
 
-/* ══ 14 · Motion primitives ════════════════════════════════════════════ */
+/* ══ 13 · Motion primitives ════════════════════════════════════════════ */
 
 /* Word-split reveal (headings keep their text, so they stay readable). */
 .sw {
@@ -1369,7 +1400,7 @@ html.is-preload { overflow: hidden; }
 /* Media mask-in */
 .proj__media { clip-path: inset(0 0 0 0); }
 
-/* ══ 15 · Responsive ═══════════════════════════════════════════════════ */
+/* ══ 14 · Responsive ═══════════════════════════════════════════════════ */
 @media (max-width: 1180px) {
   .hero__title { grid-column: 1 / -1; }
   .hero__lede { grid-column: 1 / 8; }
@@ -1386,6 +1417,9 @@ html.is-preload { overflow: hidden; }
   .projects { grid-template-columns: 1fr; }
   .proj--a, .proj--b { grid-column: 1 / -1; }
   .proj--b { margin-top: clamp(3.5rem, 12vw, 8rem); }
+  /* Stacked, each ghost has clear space above its own card and nothing to
+     collide with, so it goes back to being tucked behind it. */
+  .proj__ghost { z-index: 0; top: -.44em; }
   .grid6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grid6 .cell:nth-child(3n+2) { transform: none; }
   .grid6 .cell.is-in:nth-child(3n+2) { transform: none; }
@@ -1411,7 +1445,6 @@ html.is-preload { overflow: hidden; }
   .foot__right { justify-items: start; }
   .foot__bar { justify-content: flex-start; }
   .proj__ghost { font-size: 13vw; }
-  .ticker { width: 124%; margin-left: -12%; }
 }
 
 @media (max-width: 420px) {
@@ -1423,7 +1456,7 @@ html.is-preload { overflow: hidden; }
   .price__go { display: none; }
 }
 
-/* ══ 16 · Reduced motion & print ═══════════════════════════════════════ */
+/* ══ 15 · Reduced motion & print ═══════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -1439,13 +1472,13 @@ html.is-preload { overflow: hidden; }
   .loader { display: none !important; }
   .cursor { display: none !important; }
   .foot__mark span { background-position: 0 0 !important; }
-  .ticker { transform: none; width: 100%; margin-left: 0; }
-  .ticker__t { animation: none !important; }
+  /* The reaction holds a single still frame (bz.js never starts the loop). */
+  .bz canvas { transition: none !important; opacity: var(--bz-fade) !important; }
 }
 
 @media print {
-  .nav, .loader, .grain, .cursor, .ticker, .hero__mark, .foot__mark, .mmenu { display: none !important; }
-  body { background: #fff; color: #000; }
+  .nav, .loader, .grain, .cursor, .bz, .hero__mark, .foot__mark, .mmenu { display: none !important; }
+  html, body { background: #fff; color: #000; }
   .sec { padding: 1.5rem 0; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; }
 }

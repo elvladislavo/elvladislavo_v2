@@ -261,6 +261,10 @@
 </div>
 
 <!-- ══ Ambient layers ═══════════════════════════════════════════════════ -->
+<div class="bz" id="bz" aria-hidden="true">
+  <canvas id="bzCanvas" width="2" height="2"></canvas>
+  <div class="bz__veil"></div>
+</div>
 <div class="grain" aria-hidden="true"></div>
 <div class="cursor" id="cursor" aria-hidden="true">
   <div class="cursor__dot"></div>
@@ -321,16 +325,6 @@
 
 <!-- ══ 00 · Hero ════════════════════════════════════════════════════════ -->
 <section class="hero" aria-labelledby="hero-title">
-  <div class="hero__bg" aria-hidden="true">
-    <div class="blob blob--red"></div>
-    <div class="blob blob--lime"></div>
-    <div class="ring ring--1" data-par="0.24"></div>
-    <div class="ring ring--2"></div>
-    <div class="rules" data-par="0.1"></div>
-    <div class="slash slash--1" data-par="0.32"></div>
-    <div class="slash slash--2" data-par="-0.2"></div>
-  </div>
-
   <div class="hero__inner">
     <p class="hero__eyebrow reveal">
       <span class="dot" aria-hidden="true"></span>
@@ -366,22 +360,6 @@
     <span data-i18n="hero.scroll">Przewiń</span>
   </a>
 </section>
-
-<!-- ══ Ticker ═══════════════════════════════════════════════════════════ -->
-<div class="ticker-hold">
-<div class="ticker" aria-hidden="true">
-  <div class="ticker__row" data-dir="1">
-    <div class="ticker__t">
-      <span>Strony internetowe</span><i>✳</i><span>Tworzenie stron WWW</span><i>✳</i><span>Strony dla firm</span><i>✳</i><span>Landing page</span><i>✳</i><span>Sklepy internetowe</span><i>✳</i><span>Redesign</span><i>✳</i>
-    </div>
-  </div>
-  <div class="ticker__row ticker__row--alt" data-dir="-1">
-    <div class="ticker__t">
-      <span>Sklepy WooCommerce</span><i>✳</i><span>WordPress</span><i>✳</i><span>Techniczne SEO</span><i>✳</i><span>Core Web Vitals</span><i>✳</i><span>Strony autorskie</span><i>✳</i><span>Projektowanie stron</span><i>✳</i>
-    </div>
-  </div>
-</div>
-</div>
 
 <!-- ══ 01 · Work ════════════════════════════════════════════════════════ -->
 <section class="sec work" id="work" aria-labelledby="work-title">
@@ -630,8 +608,6 @@
 
 <!-- ══ 04 · Pricing ═════════════════════════════════════════════════════ -->
 <section class="sec pricing" id="pricing" aria-labelledby="price-title">
-  <div class="pricing__deco" aria-hidden="true" data-par="0.12"></div>
-
   <header class="sec__head">
     <span class="label"><i aria-hidden="true">04</i><span data-i18n="pr.label">Cennik</span></span>
     <h2 class="sec__title" id="price-title" data-split data-i18n-html="pr.title">Punkty wyjścia, <em>nie</em> pakiety.</h2>
@@ -829,6 +805,7 @@
   </div>
 </footer>
 
+<script src="js/bz.js" defer></script>
 <script src="js/script.js" defer></script>
 </body>
 </html>

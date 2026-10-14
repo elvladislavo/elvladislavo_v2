@@ -7,7 +7,7 @@
 
    Sections:  01 copy (PL/EN) · 02 split text · 03 reveal · 04 scroll engine
               05 cursor · 06 magnetic · 07 nav · 08 mobile menu
-              09 services · 10 ticker · 11 form · 12 loader · 13 boot
+              09 services · 10 form · 11 loader · 12 boot
    ═══════════════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -238,21 +238,6 @@
   /* The scrolling bands. Proper nouns (WordPress, WooCommerce, Core Web
      Vitals) are the same in both languages; everything else is translated,
      so a Polish visitor never sees an English term drift past. */
-  var TICKER = {
-    pl: [
-      ['Strony internetowe', 'Tworzenie stron WWW', 'Strony dla firm',
-       'Landing page', 'Sklepy internetowe', 'Redesign'],
-      ['Sklepy WooCommerce', 'WordPress', 'Techniczne SEO',
-       'Core Web Vitals', 'Strony autorskie', 'Projektowanie stron']
-    ],
-    en: [
-      ['Websites', 'Web development', 'Business websites',
-       'Landing pages', 'Online stores', 'Redesigns'],
-      ['WooCommerce stores', 'WordPress', 'Technical SEO',
-       'Core Web Vitals', 'Custom websites', 'Web developer Poland']
-    ]
-  };
-
   var META = {
     en: {
       title: 'elvladislavo — websites for sensible money',
@@ -300,8 +285,6 @@
       var v = dict[el.getAttribute('data-i18n-alt')];
       if (v != null) el.setAttribute('alt', v);
     });
-
-    buildTicker();
 
     var m = META[next];
     document.title = m.title;
@@ -695,53 +678,7 @@
     });
   }
 
-  /* ══ 10 · Ticker ═════════════════════════════════════════════════════ */
-
-  function buildTicker() {
-    var sets = TICKER[lang] || TICKER.en;
-
-    $$('.ticker__row').forEach(function (row, i) {
-      var words = sets[i] || sets[0];
-
-      var seq = document.createElement('div');
-      seq.className = 'ticker__t';
-      words.forEach(function (w) {
-        var word = document.createElement('span');
-        word.textContent = w;
-        var star = document.createElement('i');
-        star.textContent = '*';
-        seq.appendChild(word);
-        seq.appendChild(star);
-      });
-
-      row.textContent = '';
-      row.appendChild(seq);
-
-      // Repeat until one sequence comfortably overruns the row, so the seam
-      // between the two halves never opens a gap — including after the web
-      // font swaps in and changes the measured width.
-      var originals = Array.prototype.slice.call(seq.children)
-        .map(function (n) { return n.cloneNode(true); });
-      var guard = 0;
-      while (seq.scrollWidth < row.clientWidth * 1.5 && guard++ < 12) {
-        originals.forEach(function (n) { seq.appendChild(n.cloneNode(true)); });
-      }
-
-      var track = document.createElement('div');
-      track.className = 'ticker__track';
-      row.insertBefore(track, seq);
-      track.appendChild(seq);
-
-      var twin = seq.cloneNode(true);
-      twin.setAttribute('aria-hidden', 'true');
-      track.appendChild(twin);
-
-      // Constant speed regardless of how much copy the row holds.
-      track.style.setProperty('--dur', Math.max(18, Math.round(seq.scrollWidth / 62)) + 's');
-    });
-  }
-
-  /* ══ 11 · Form ═══════════════════════════════════════════════════════
+  /* ══ 10 · Form ═══════════════════════════════════════════════════════
      No back end is wired up: the form validates, then hands a fully
      composed message to the visitor's mail client. Point ENDPOINT at a
      POST handler (Formspree, Basin, your own script) to send it directly. */
@@ -841,7 +778,7 @@
     });
   }
 
-  /* ══ 12 · Loader ═════════════════════════════════════════════════════ */
+  /* ══ 11 · Loader ═════════════════════════════════════════════════════ */
 
   function bootDone() {
     root.classList.remove('is-preload');
@@ -891,7 +828,7 @@
     })(start);
   }
 
-  /* ══ 13 · Boot ═══════════════════════════════════════════════════════ */
+  /* ══ 12 · Boot ═══════════════════════════════════════════════════════ */
 
   function init() {
     var yr = $('#yr');

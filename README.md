@@ -14,6 +14,7 @@ favicon.ico         Root fallback for browsers that ask for it unprompted
 .nojekyll           Stops GitHub Pages running the files through Jekyll
 css/style.css       Design system + every section
 js/script.js        i18n, motion engine, nav, form
+js/bz.js            Belousov–Zhabotinsky reaction behind the page
 assets/             Images, favicons, OG card
 ```
 
@@ -141,6 +142,38 @@ render correctly. To remove the third-party request, download the three
 families, self-host them in `assets/fonts/`, and swap the `<link>` for local
 `@font-face` rules — then update the Google Fonts paragraph in the privacy
 policy, which currently discloses it.
+
+**The background** is a Belousov–Zhabotinsky reaction — the real chemistry,
+solved as a two-variable Oregonator on a periodic grid in `js/bz.js` — painted
+onto one fixed canvas behind every section. The grid is sized from the
+viewport (a cell is about 4 px, 3 px on phones), so the spirals keep one scale
+on a phone and on a desktop.
+
+Two dials sit at the top of `js/bz.js`, right under the model constants:
+
+```js
+var SPEED = 1;   // 1 as shipped · 0.5 half as fast · 2 twice as fast
+var SCALE = 1;   // 1 as shipped · 1.5 a larger, cheaper pattern · 0.7 finer
+var HOLD  = 0;   // 0 moves on arrival · a number of ms holds the first
+                 //   frame still until the visitor touches the page
+```
+
+`SPEED` is a rate, not a step count, so fractions work and the waves travel at
+the same speed on every machine. The loop owes itself steps by the clock and
+pays off as many as fit in a 5 ms slice of each frame, so a frame costs the
+same whatever the device — a slow one simply sees the waves move slower, and
+the simulation can never hold up a scroll. It starts only after the page has
+loaded — the medium matures behind the site's own loader and the waves are
+already moving when the wipe clears — pauses in a background tab, and holds
+one still frame under `prefers-reduced-motion`.
+
+Three dials in `css/style.css` (`:root`) decide how it sits under the type —
+`--bz-veil` (how much ink covers the waves), `--bz-blur` (how soft they are)
+and `--bz-fade` (brightness). Raise `--bz-veil` for calmer, lower it for
+louder. Above the canvas, every dark section lays down a flat scrim and the
+blocks that carry copy add a soft ink halo, so no sharp edge ever lands behind
+a line of text. `js/bz.js` is dropped in by `index.html` and `privacy.html`;
+`404.html` stays self-contained by design and keeps its own glow.
 
 **Motion** runs on one `requestAnimationFrame` loop that sleeps as soon as
 everything settles — no permanently running timers. Scroll work reads all
