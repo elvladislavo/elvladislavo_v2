@@ -12,9 +12,10 @@
 <!-- Inlined so the icon resolves no matter what path this page is served from. -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 role=%22img%22 aria-label=%22elvladislavo%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2221%22 fill=%22%230A0A0B%22/%3E%3Cg fill=%22%23FF2E1F%22%3E%3Crect x=%2220%22 y=%2225%22 width=%2230%22 height=%2210%22/%3E%3Crect x=%2210%22 y=%2235%22 width=%2210%22 height=%2210%22/%3E%3Crect x=%2250%22 y=%2235%22 width=%2210%22 height=%2210%22/%3E%3Crect x=%2210%22 y=%2245%22 width=%2250%22 height=%2210%22/%3E%3Crect x=%2210%22 y=%2255%22 width=%2210%22 height=%2210%22/%3E%3Crect x=%2220%22 y=%2265%22 width=%2230%22 height=%2210%22/%3E%3Crect x=%2270%22 y=%2225%22 width=%2210%22 height=%2250%22/%3E%3Crect x=%2280%22 y=%2265%22 width=%2210%22 height=%2210%22/%3E%3C/g%3E%3C/svg%3E" type="image/svg+xml">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap">
+<!-- No font request of its own: this page is served for any missing URL at
+     any depth, so a relative path would resolve against the wrong folder and
+     an absolute one breaks in a subdirectory. It uses the system stack, and
+     the rest of the site serves its own fonts from assets/fonts/. -->
 
 <!-- ─────────────────────────────────────────────────────────────────────
      This page is deliberately self-contained: no stylesheet, script,

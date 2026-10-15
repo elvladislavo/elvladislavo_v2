@@ -12,9 +12,11 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap">
+<!-- Type is served from this origin and preloaded: a font that arrives
+     after first paint re-wraps every headline on the way in. -->
+<link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/style.css">
 <style>
   .doc { position: relative; max-width: 74ch; padding-top: calc(var(--nav-h) + clamp(3rem, 8vw, 6rem)); }
@@ -109,7 +111,7 @@ if(l!=='pl'&&l!=='en'){l=/^pl\b/i.test(navigator.language||'')?'pl':'en';}d.lang
   <h2 data-n="06">Third parties</h2>
   <ul>
     <li><b>Hosting.</b> The hosting provider processes standard server logs (IP address, time of request, browser identification) for security and diagnostics.</li>
-    <li><b>Google Fonts.</b> Typefaces are loaded from Google's servers, so your IP address is visible to Google when the page loads. If you would rather that not happen, the fonts can be self-hosted — say the word.</li>
+    <li><b>Typefaces.</b> The fonts are served from this site itself, not from Google Fonts or any other third party, so loading a page sends your IP address nowhere but here.</li>
   </ul>
   <p>No data is sold, and nothing is shared beyond what is described here.</p>
 
@@ -154,7 +156,7 @@ if(l!=='pl'&&l!=='en'){l=/^pl\b/i.test(navigator.language||'')?'pl':'en';}d.lang
   <h2 data-n="06">Podmioty zewnętrzne</h2>
   <ul>
     <li><b>Hosting.</b> Dostawca hostingu przetwarza standardowe logi serwera (adres IP, czas zapytania, identyfikacja przeglądarki) w celach bezpieczeństwa i diagnostyki.</li>
-    <li><b>Google Fonts.</b> Kroje pisma ładowane są z serwerów Google, więc przy wczytaniu strony Twój adres IP jest widoczny dla Google. Jeśli wolisz tego uniknąć, fonty można hostować lokalnie — wystarczy dać znać.</li>
+    <li><b>Kroje pisma.</b> Fonty serwowane są z tej strony, a nie z Google Fonts ani innego zewnętrznego dostawcy, więc wczytanie strony nie wysyła Twojego adresu IP nigdzie poza nią.</li>
   </ul>
   <p>Dane nie są sprzedawane i nie są udostępniane poza tym, co opisano powyżej.</p>
 

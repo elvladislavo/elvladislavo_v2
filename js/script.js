@@ -852,7 +852,9 @@
       if (p < 1) { requestAnimationFrame(tick); return; }
 
       loader.classList.add('is-out');
-      whenFontsReady(next, 600);          // the wipe hides any last reflow
+      // The loader covers the usual case; holding much past it would trade a
+      // rare reflow for a slower first paint on every visit.
+      whenFontsReady(next, 800);
       setTimeout(function () { loader.classList.add('is-done'); }, 1000);
     })(start);
   }

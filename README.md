@@ -135,13 +135,26 @@ and the head metadata; the detection logic itself needs no change.
 
 ## Notes on how it's built
 
-**Fonts** come from Google Fonts: Archivo (variable, carries the width-axis
-animation on the big wordmarks), Instrument Serif (the red italics) and Space
-Mono (labels and numbers). Latin-Extended is included, so Polish diacritics
-render correctly. To remove the third-party request, download the three
-families, self-host them in `assets/fonts/`, and swap the `<link>` for local
-`@font-face` rules — then update the Google Fonts paragraph in the privacy
-policy, which currently discloses it.
+**Fonts are served from this origin**, declared in `css/fonts.css`: Archivo
+(one variable file carrying both the weight and the width axis the wordmarks
+animate), Instrument Serif (the red italics) and Space Mono (labels and
+numbers), each split into Latin and Latin-Extended by `unicode-range` so
+Polish diacritics cost an English reader nothing. Each file is also subset to
+the characters the site actually renders in both languages — 144 KB in
+`assets/fonts/` against 328 KB of stock subsets — and the two faces that set
+the page's measurements are preloaded in the head.
+
+If the copy ever gains characters outside that set (another language, unusual
+punctuation), they fall back to the system font: re-subset from the full
+families rather than editing `css/fonts.css` by hand.
+
+They used to come from Google Fonts, which costs two extra DNS lookups and
+two TLS handshakes before a glyph is even requested. On a phone those can
+finish after the page is already on screen, and the swap re-wrapped every
+headline — two lines becoming three, mid-scroll. Self-hosted, they arrive
+with the page. `404.html` is the exception: a host serves it for any missing URL at any
+depth, so it can load no file of its own — relative paths would resolve
+against the wrong folder — and it renders in the system stack.
 
 **The background** is a Belousov–Zhabotinsky reaction — the real chemistry,
 solved as a two-variable Oregonator on a periodic grid in `js/bz.js` — painted

@@ -143,6 +143,10 @@ em { font-style: normal; }
 .sec--light .label { color: rgba(10,10,11,.68); }
 .sec--light .label i { color: var(--red-d); border-right-color: rgba(10,10,11,.16); }
 
+/* Measures are set in em, not ch: `ch` is the width of a "0" in whatever
+   font is rendering, so every headline re-wraps the moment the webfont
+   lands — on a phone, mid-scroll. em moves only with the font size. */
+
 /* Section shell -------------------------------------------------------- */
 .sec {
   position: relative;
@@ -173,9 +177,9 @@ em { font-style: normal; }
 .sec__title {
   font-size: clamp(2.6rem, 7.4vw, 6.6rem);
   margin-top: clamp(1rem, 2.2vw, 2rem);
-  max-width: 18ch;
+  max-width: 11.25em;   /* was 18ch */
 }
-.sec__title--xl { font-size: clamp(2.9rem, 9vw, 8.4rem); max-width: 14ch; }
+.sec__title--xl { font-size: clamp(2.9rem, 9vw, 8.4rem); max-width: 8.75em; }
 .sec__title em {
   font-family: var(--f-serif);
   font-style: italic;
@@ -187,7 +191,7 @@ em { font-style: normal; }
 .sec--light .sec__title em { color: var(--red-d); }
 .sec__lede, .sec__note {
   margin-top: 1.4rem;
-  max-width: 46ch;
+  max-width: 26.363em;
   color: var(--mut);
   font-size: clamp(.98rem, 1.1vw, 1.12rem);
 }
@@ -670,7 +674,7 @@ html.is-preload { overflow: hidden; }
   line-height: .87;
   letter-spacing: -.045em;
   font-variation-settings: "wdth" 96;
-  max-width: 15ch;
+  max-width: 9.375em;
 }
 .hero__title em {
   font-family: var(--f-serif);
@@ -683,7 +687,7 @@ html.is-preload { overflow: hidden; }
 .hero__lede {
   grid-column: 1 / 7;
   margin-top: clamp(1.4rem, 3vw, 2.4rem);
-  max-width: 34ch;
+  max-width: 19.485em;
   color: var(--mut);
   font-size: clamp(1.02rem, 1.35vw, 1.3rem);
   line-height: 1.45;
@@ -880,7 +884,7 @@ html.is-preload { overflow: hidden; }
   letter-spacing: .04em;
 }
 .proj__desc {
-  color: var(--mut); max-width: 42ch; margin-top: .35rem;
+  color: var(--mut); max-width: 24.07em; margin-top: .35rem;
   font-size: clamp(.94rem, 1vw, 1.02rem);
 }
 .proj__cta {
@@ -942,7 +946,7 @@ html.is-preload { overflow: hidden; }
 
 .svc__hint {
   font-size: .93rem; color: var(--mut);
-  max-width: 40ch; justify-self: end; text-align: right;
+  max-width: 22.924em; justify-self: end; text-align: right;
   opacity: 0; transform: translateX(18px);
   transition: opacity .45s var(--e), transform .55s var(--e), color .45s var(--e);
 }
@@ -977,7 +981,7 @@ html.is-preload { overflow: hidden; }
   padding-inline: clamp(.5rem, 1.6vw, 1.6rem);
 }
 .svc__item.is-open .svc__pin { padding-bottom: clamp(1.6rem, 3vw, 2.6rem); }
-.svc__pin > p { color: var(--mut); max-width: 52ch; }
+.svc__pin > p { color: var(--mut); max-width: 29.801em; }
 .svc__pin--cols {
   display: grid; gap: clamp(1.4rem, 3vw, 3rem);
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
@@ -1120,7 +1124,7 @@ html.is-preload { overflow: hidden; }
   font-size: clamp(1.7rem, 4.4vw, 3.5rem);
   font-weight: 800; letter-spacing: -.045em;
   font-variant-numeric: tabular-nums;
-  min-width: 4.1ch; text-align: right;
+  min-width: 2.563em; text-align: right;   /* was 4.1ch */
   transition: color .4s var(--e);
 }
 .price__amt u {
@@ -1143,14 +1147,14 @@ html.is-preload { overflow: hidden; }
 .statement {
   font-size: clamp(1.6rem, 4.1vw, 3.4rem);
   font-weight: 800; letter-spacing: -.04em; line-height: 1;
-  max-width: 16ch;
+  max-width: 10.0em;
 }
 .statement em {
   font-family: var(--f-serif); font-style: italic; font-weight: 400;
   color: var(--red); font-size: 1.06em;
 }
 .fine {
-  font-size: .92rem; color: var(--mut); max-width: 52ch;
+  font-size: .92rem; color: var(--mut); max-width: 29.801em;
   padding-left: clamp(1rem, 2vw, 1.6rem);
   border-left: 1px solid var(--hair);
 }
@@ -1183,7 +1187,7 @@ html.is-preload { overflow: hidden; }
   font-size: clamp(1.4rem, 2.7vw, 2.35rem);
   margin: .9rem 0 .7rem;
 }
-.step p { color: var(--mut); max-width: 34ch; font-size: .98rem; }
+.step p { color: var(--mut); max-width: 19.485em; font-size: .98rem; }
 
 /* ══ 11 · Contact ══════════════════════════════════════════════════════ */
 .contact { overflow: hidden; }
@@ -1413,7 +1417,7 @@ html.is-preload { overflow: hidden; }
   .nav__menu { display: none; }
   .burger { display: block; }
   .sec__head--split { grid-template-columns: 1fr; }
-  .sec__note { max-width: 52ch; }
+  .sec__note { max-width: 29.801em; }
   .projects { grid-template-columns: 1fr; }
   .proj--a, .proj--b { grid-column: 1 / -1; }
   .proj--b { margin-top: clamp(3.5rem, 12vw, 8rem); }
