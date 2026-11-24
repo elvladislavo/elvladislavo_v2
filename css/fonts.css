@@ -12,6 +12,11 @@
    or two round trips to another origin. Archivo is one variable file
    carrying both the weight and the width axis the design animates.
 
+   Russian: none of the three families draw Cyrillic, so each name also
+   gets a Cyrillic-only face (unicode-range U+04xx) cut from an OFL family
+   that sits close to it — Roboto Flex (same wght + wdth axes) for Archivo,
+   Playfair Display for Instrument Serif, JetBrains Mono for Space Mono.
+   The browser only fetches them when Cyrillic is actually on screen.
    If the copy ever gains characters outside this set — another language,
    unusual punctuation — they fall back to the system font. Re-subset from
    the full families rather than hand-editing this file.
@@ -103,4 +108,47 @@
   font-display: swap;
   src: url("../assets/fonts/space-mono-700-ext.woff2") format("woff2");
   unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* Cyrillic companions (see header) */
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url("../assets/fonts/roboto-flex-cyr.woff2") format("woff2-variations");
+  unicode-range: U+0401,U+0404,U+0406-0407,U+040E,U+0410-044F,U+0451,U+0454,U+0456-0457,U+045E,U+0490-0491;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/playfair-cyr.woff2") format("woff2");
+  unicode-range: U+0401,U+0404,U+0406-0407,U+040E,U+0410-044F,U+0451,U+0454,U+0456-0457,U+045E,U+0490-0491;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/playfair-italic-cyr.woff2") format("woff2");
+  unicode-range: U+0401,U+0404,U+0406-0407,U+040E,U+0410-044F,U+0451,U+0454,U+0456-0457,U+045E,U+0490-0491;
+}
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/jetbrains-mono-cyr.woff2") format("woff2");
+  unicode-range: U+0401,U+0404,U+0406-0407,U+040E,U+0410-044F,U+0451,U+0454,U+0456-0457,U+045E,U+0490-0491;
+}
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/jetbrains-mono-700-cyr.woff2") format("woff2");
+  unicode-range: U+0401,U+0404,U+0406-0407,U+040E,U+0410-044F,U+0451,U+0454,U+0456-0457,U+045E,U+0490-0491;
 }
