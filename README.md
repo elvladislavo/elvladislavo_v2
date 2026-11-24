@@ -4,9 +4,9 @@ Static site. HTML, CSS and vanilla JavaScript, no build step and no framework.
 Upload the folder to any host and it runs.
 
 ```
-index.html          Home (single page, PL/EN)
+index.html          Home (single page, PL/EN/RU)
 404.html            Not-found page (fully self-contained)
-privacy.html        Privacy policy (both languages in one file)
+privacy.html        Privacy policy (all three languages in one file)
 robots.txt
 sitemap.xml
 site.webmanifest

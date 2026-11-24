@@ -9,6 +9,7 @@
 <link rel="canonical" href="https://elvladislavo.com/">
 <link rel="alternate" hreflang="en" href="https://elvladislavo.com/?lang=en">
 <link rel="alternate" hreflang="pl" href="https://elvladislavo.com/?lang=pl">
+<link rel="alternate" hreflang="ru" href="https://elvladislavo.com/?lang=ru">
 <link rel="alternate" hreflang="x-default" href="https://elvladislavo.com/?lang=en">
 <meta name="author" content="elvladislavo">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -55,10 +56,11 @@
   d.className = d.className.replace('no-js', 'js') + ' is-preload';
   var lang = null;
   try { lang = localStorage.getItem('elv-lang'); } catch (e) {}
-  var q = location.search.match(/[?&]lang=(pl|en)\b/);
+  var q = location.search.match(/[?&]lang=(pl|en|ru)\b/);
   if (q) lang = q[1];
-  if (lang !== 'pl' && lang !== 'en') {
-    lang = /^pl\b/i.test(navigator.language || '') ? 'pl' : 'en';
+  if (lang !== 'pl' && lang !== 'en' && lang !== 'ru') {
+    var nl = navigator.language || '';
+    lang = /^pl\b/i.test(nl) ? 'pl' : /^ru\b/i.test(nl) ? 'ru' : 'en';
   }
   d.lang = lang;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced');
@@ -212,7 +214,8 @@
       "name": "elvladislavo",
       "inLanguage": [
         "pl",
-        "en"
+        "en",
+        "ru"
       ],
       "publisher": {
         "@id": "https://elvladislavo.com/#studio"
@@ -298,6 +301,8 @@
       <button type="button" class="lang__btn" data-lang="pl">PL</button>
       <span class="lang__sep" aria-hidden="true">|</span>
       <button type="button" class="lang__btn" data-lang="en">EN</button>
+      <span class="lang__sep" aria-hidden="true">|</span>
+      <button type="button" class="lang__btn" data-lang="ru">RU</button>
     </div>
     <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="mobile-menu">
       <span class="vh" data-i18n="a11y.menu">Menu</span>
@@ -322,6 +327,8 @@
         <button type="button" class="lang__btn" data-lang="pl">PL</button>
         <span class="lang__sep" aria-hidden="true">|</span>
         <button type="button" class="lang__btn" data-lang="en">EN</button>
+        <span class="lang__sep" aria-hidden="true">|</span>
+        <button type="button" class="lang__btn" data-lang="ru">RU</button>
       </div>
     </div>
   </nav>
@@ -798,6 +805,8 @@
         <button type="button" class="lang__btn" data-lang="pl">PL</button>
         <span class="lang__sep" aria-hidden="true">|</span>
         <button type="button" class="lang__btn" data-lang="en">EN</button>
+        <span class="lang__sep" aria-hidden="true">|</span>
+        <button type="button" class="lang__btn" data-lang="ru">RU</button>
       </div>
     </div>
   </div>

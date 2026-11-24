@@ -161,7 +161,10 @@ button{background:none;border:0;cursor:pointer;font:inherit;color:inherit}
   d.className = d.className.replace('no-js', 'js');
   var l = null;
   try { l = localStorage.getItem('elv-lang'); } catch (e) {}
-  if (l !== 'pl' && l !== 'en') l = /^pl\b/i.test(navigator.language || '') ? 'pl' : 'en';
+  if (l !== 'pl' && l !== 'en' && l !== 'ru') {
+    var nl = navigator.language || '';
+    l = /^pl\b/i.test(nl) ? 'pl' : /^ru\b/i.test(nl) ? 'ru' : 'en';
+  }
   d.lang = l;
 })();
 </script>
@@ -178,6 +181,8 @@ button{background:none;border:0;cursor:pointer;font:inherit;color:inherit}
     <button type="button" class="lang__btn" data-lang="pl">PL</button>
     <span class="lang__sep" aria-hidden="true">|</span>
     <button type="button" class="lang__btn" data-lang="en">EN</button>
+    <span class="lang__sep" aria-hidden="true">|</span>
+    <button type="button" class="lang__btn" data-lang="ru">RU</button>
   </div>
 </header>
 
@@ -232,7 +237,12 @@ button{background:none;border:0;cursor:pointer;font:inherit;color:inherit}
           head: 'Ta strona <em>zniknęła</em>.',
           body: 'Link jest nieprawidłowy albo strona została przeniesiona. Wszystko, co warto zobaczyć, jest na stronie głównej.',
           cta1: 'Wróć na stronę główną', cta2: 'Napisz do mnie',
-          title: '404 — Nie znaleziono strony · elvladislavo' }
+          title: '404 — Nie znaleziono strony · elvladislavo' },
+    ru: { kicker: 'Страница не найдена',
+          head: 'Эта страница <em>пропала</em>.',
+          body: 'Ссылка неверная или страница переехала. Всё, что стоит увидеть, — на главной.',
+          cta1: 'Вернуться на главную', cta2: 'Написать мне',
+          title: '404 — Страница не найдена · elvladislavo' }
   };
 
   function apply(l, remember) {
@@ -252,7 +262,7 @@ button{background:none;border:0;cursor:pointer;font:inherit;color:inherit}
   document.querySelectorAll('.lang__btn').forEach(function (b) {
     b.addEventListener('click', function () { apply(b.dataset.lang, true); });
   });
-  apply(document.documentElement.lang === 'pl' ? 'pl' : 'en');
+  apply(T[document.documentElement.lang] ? document.documentElement.lang : 'en');
 })();
 </script>
 </body>

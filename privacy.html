@@ -51,7 +51,7 @@
   if ('scrollRestoration' in history && !location.hash) history.scrollRestoration = 'manual';
   var d=document.documentElement;d.className=d.className.replace('no-js','js');
 var l=null;try{l=localStorage.getItem('elv-lang');}catch(e){}
-if(l!=='pl'&&l!=='en'){l=/^pl\b/i.test(navigator.language||'')?'pl':'en';}d.lang=l;})();
+if(l!=='pl'&&l!=='en'&&l!=='ru'){var nl=navigator.language||'';l=/^pl\b/i.test(nl)?'pl':/^ru\b/i.test(nl)?'ru':'en';}d.lang=l;})();
 </script>
 </head>
 <body>
@@ -71,6 +71,8 @@ if(l!=='pl'&&l!=='en'){l=/^pl\b/i.test(navigator.language||'')?'pl':'en';}d.lang
       <button type="button" class="lang__btn" data-lang="pl">PL</button>
       <span class="lang__sep" aria-hidden="true">|</span>
       <button type="button" class="lang__btn" data-lang="en">EN</button>
+      <span class="lang__sep" aria-hidden="true">|</span>
+      <button type="button" class="lang__btn" data-lang="ru">RU</button>
     </div>
   </div>
 </header>
@@ -106,7 +108,7 @@ if(l!=='pl'&&l!=='en'){l=/^pl\b/i.test(navigator.language||'')?'pl':'en';}d.lang
   <p>Enquiries that don't lead anywhere are deleted within 12 months. Project correspondence is kept for the length of the engagement and for as long as accounting and limitation periods require.</p>
 
   <h2 data-n="05">Cookies and local storage</h2>
-  <p>This site sets no cookies and runs no advertising or analytics trackers. It does use your browser's local storage for two small things: remembering whether you chose PL or EN, and remembering that you have already seen the intro animation. Both stay on your device and are never transmitted. Clearing your site data removes them.</p>
+  <p>This site sets no cookies and runs no advertising or analytics trackers. It does use your browser's local storage for two small things: remembering whether you chose PL, EN or RU, and remembering that you have already seen the intro animation. Both stay on your device and are never transmitted. Clearing your site data removes them.</p>
 
   <h2 data-n="06">Third parties</h2>
   <ul>
@@ -151,7 +153,7 @@ if(l!=='pl'&&l!=='en'){l=/^pl\b/i.test(navigator.language||'')?'pl':'en';}d.lang
   <p>Zapytania, które nie prowadzą do współpracy, usuwam w ciągu 12 miesięcy. Korespondencję projektową przechowuję przez czas trwania współpracy oraz tak długo, jak wymagają tego przepisy rachunkowe i terminy przedawnienia.</p>
 
   <h2 data-n="05">Cookies i pamięć przeglądarki</h2>
-  <p>Ta strona nie ustawia plików cookies ani nie używa trackerów reklamowych czy analitycznych. Korzysta z pamięci lokalnej przeglądarki w dwóch drobnych celach: zapamiętuje wybór języka (PL lub EN) oraz to, że animacja powitalna została już wyświetlona. Oba zapisy pozostają na Twoim urządzeniu i nie są nigdzie przesyłane. Wyczyszczenie danych witryny je usuwa.</p>
+  <p>Ta strona nie ustawia plików cookies ani nie używa trackerów reklamowych czy analitycznych. Korzysta z pamięci lokalnej przeglądarki w dwóch drobnych celach: zapamiętuje wybór języka (PL, EN lub RU) oraz to, że animacja powitalna została już wyświetlona. Oba zapisy pozostają na Twoim urządzeniu i nie są nigdzie przesyłane. Wyczyszczenie danych witryny je usuwa.</p>
 
   <h2 data-n="06">Podmioty zewnętrzne</h2>
   <ul>
@@ -172,17 +174,63 @@ if(l!=='pl'&&l!=='en'){l=/^pl\b/i.test(navigator.language||'')?'pl':'en';}d.lang
   <a class="doc__back" href="./"><i aria-hidden="true">←</i> Wróć do elvladislavo</a>
 </article>
 
+<article id="doc-ru" lang="ru" hidden>
+  <h1>Политика <em>конфиденциальности</em></h1>
+  <p class="doc__meta">Последнее обновление: 2 сентября 2026 · elvladislavo.com</p>
+
+  <p>Эта политика объясняет, что происходит с персональными данными, когда вы связываетесь с elvladislavo через этот сайт. Она написана так, чтобы её можно было прочитать.</p>
+  <p>Документ является переводом; при расхождениях обязательной считается польская версия.</p>
+
+  <h2 data-n="01">Кто отвечает за данные</h2>
+  <p>Администратором (контролёром) ваших персональных данных является elvladislavo, [НАИМЕНОВАНИЕ], [АДРЕС], Польша. По всем вопросам, связанным с данными, пишите на <a href="mailto:hello@elvladislavo.com">hello@elvladislavo.com</a>.</p>
+
+  <h2 data-n="02">Какие данные собираются</h2>
+  <p>Только те, что вы отправляете сами. Форма обратной связи спрашивает имя, адрес электронной почты, тип проекта и текст сообщения. Сама форма ничего не отправляет — она составляет письмо и передаёт его в ваш почтовый клиент, поэтому ко мне ничего не попадёт, пока вы сами не нажмёте «Отправить».</p>
+  <p>Если вы пишете напрямую на почту, то же самое относится ко всему, что содержит ваше письмо.</p>
+
+  <h2 data-n="03">Зачем и на каком основании</h2>
+  <ul>
+    <li>Чтобы ответить на запрос, а если дело пойдёт дальше — подготовить и выполнить проект: ст. 6(1)(b) GDPR (действия до заключения договора и его исполнение).</li>
+    <li>Чтобы вести учёт деловой переписки: ст. 6(1)(f) GDPR (законный интерес).</li>
+    <li>Когда этого требует бухгалтерское или налоговое законодательство: ст. 6(1)(c) GDPR.</li>
+  </ul>
+
+  <h2 data-n="04">Как долго хранятся</h2>
+  <p>Запросы, не перешедшие в сотрудничество, удаляются в течение 12 месяцев. Переписка по проекту хранится в течение сотрудничества и столько, сколько требуют бухгалтерские нормы и сроки исковой давности.</p>
+
+  <h2 data-n="05">Cookies и локальное хранилище</h2>
+  <p>Сайт не устанавливает cookies и не использует рекламные или аналитические трекеры. Он использует локальное хранилище браузера для двух мелочей: чтобы запомнить выбранный язык (PL, EN или RU) и то, что вступительная анимация уже показана. Обе записи остаются на вашем устройстве и никуда не передаются. Очистка данных сайта удаляет их.</p>
+
+  <h2 data-n="06">Третьи стороны</h2>
+  <ul>
+    <li><b>Хостинг.</b> Хостинг-провайдер обрабатывает стандартные серверные логи (IP-адрес, время запроса, данные браузера) в целях безопасности и диагностики.</li>
+    <li><b>Шрифты.</b> Шрифты загружаются с этого же сайта, а не с Google Fonts или другого стороннего сервиса, поэтому при открытии страницы ваш IP-адрес никуда, кроме этого сайта, не уходит.</li>
+  </ul>
+  <p>Данные не продаются и не передаются никому сверх описанного здесь.</p>
+
+  <h2 data-n="07">Ваши права</h2>
+  <p>Вы можете запросить доступ к своим данным, их исправление, удаление, ограничение обработки, перенос, а также возразить против обработки на основании законного интереса. Напишите на адрес выше — вы получите ответ. Вы также вправе подать жалобу Председателю Управления по защите персональных данных Польши (UODO), ul. Stawki 2, 00-193 Warszawa.</p>
+
+  <h2 data-n="08">Внешние ссылки</h2>
+  <p>Портфолио ведёт на сайты, сделанные для клиентов. После перехода на такой сайт действует его собственная политика конфиденциальности.</p>
+
+  <h2 data-n="09">Изменения</h2>
+  <p>Если политика изменится, вместе с ней изменится и дата вверху.</p>
+
+  <a class="doc__back" href="./"><i aria-hidden="true">←</i> Вернуться на elvladislavo</a>
+</article>
+
 </main>
 
 <script>
 (function () {
-  var en = document.getElementById('doc-en');
-  var pl = document.getElementById('doc-pl');
+  var DOCS = { en: document.getElementById('doc-en'), pl: document.getElementById('doc-pl'), ru: document.getElementById('doc-ru') };
+  var TITLES = { en: 'Privacy Policy · elvladislavo', pl: 'Polityka prywatności · elvladislavo', ru: 'Политика конфиденциальности · elvladislavo' };
   function apply(l, remember) {
-    var isPl = l === 'pl';
+    if (!DOCS[l]) l = 'en';
     document.documentElement.lang = l;
-    en.hidden = isPl; pl.hidden = !isPl;
-    document.title = isPl ? 'Polityka prywatności · elvladislavo' : 'Privacy Policy · elvladislavo';
+    for (var k in DOCS) DOCS[k].hidden = k !== l;
+    document.title = TITLES[l];
     document.querySelectorAll('.lang__btn').forEach(function (b) {
       var on = b.dataset.lang === l;
       b.classList.toggle('is-on', on);
@@ -193,7 +241,7 @@ if(l!=='pl'&&l!=='en'){l=/^pl\b/i.test(navigator.language||'')?'pl':'en';}d.lang
   document.querySelectorAll('.lang__btn').forEach(function (b) {
     b.addEventListener('click', function () { apply(b.dataset.lang, true); });
   });
-  apply(document.documentElement.lang === 'pl' ? 'pl' : 'en');
+  apply(document.documentElement.lang);
 })();
 </script>
 <script src="js/bz.js" defer></script>
